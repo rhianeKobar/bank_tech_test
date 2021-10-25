@@ -40,10 +40,10 @@ describe 'Bank account' do
 			expect(with_start_balance.balance).to eq 1200
 		end
 
-		# it 'Should record the changes made' do
-		# 	account.deposit(3000)
-		# 	expect(account.history.length).to eq 2
-		# end
+		it 'Should record the changes made' do
+			with_start_balance.deposit(3000)
+			expect(with_start_balance.history.length).to eq 2
+		end
 
 	end
 

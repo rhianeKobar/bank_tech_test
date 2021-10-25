@@ -1,5 +1,7 @@
 class Bank_Account
 
+	# UPPER_LIMIT = 500000000
+	# LOWER_LIMIT = -10000
 	attr_reader :balance, :history
 
 	def initialize(balance = 0)
@@ -14,7 +16,7 @@ class Bank_Account
 
 	def withdraw(amount)
 		@balance -= amount
-		# @history.push([get_current_date, "", amount, @balance])
+		@history.push([get_current_date,amount,"", @balance])
 	end
 
 	private
