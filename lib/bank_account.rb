@@ -1,49 +1,54 @@
-class Bank_Account
+# frozen_string_literal: true
 
-	UPPER_LIMIT = 500000000
-	LOWER_LIMIT = -10000
-	attr_reader :balance, :history
+# class BankAccount
+class BankAccount
+  UPPER_LIMIT = 500_000_000
+  LOWER_LIMIT = -10_000
+  attr_reader :balance, :history
 
-	def initialize(balance = 0)
-		@balance = balance
-		@history = [[get_current_date, "", "", balance]]
-	end
+  def initialize(balance = 0)
+    @balance = balance
+    @history = [[current_date, '', '', balance]]
+  end
 
-	def deposit(amount)
-		fail "Congratulations, you've hit the upper limit! We've redirected this deposit to one of our customers in debt!" if upper_limit?(amount)
-		@balance += amount
-		@history.push([get_current_date, "", amount, @balance])
-	end
+  def deposit(amount)
+    if upper_limit?(amount)
+      raise "Congratulations, you've hit the upper limit! This deposit will go to customers in debt!"
+    end
 
-	def withdraw(amount)
-		fail "Unfortunately, your account is #{@balance} and any more withdrawals will put you over your overdraft limit." if lower_limit?(amount)
-		@balance -= amount
-		@history.push([get_current_date,amount,"", @balance])
-	end
+    @balance += amount
+    @history.push([current_date, '', amount, @balance])
+  end
 
-	def get_statement
-		statement_header
-		@history.each{|entry|
-			p "#{entry[0]} ||     #{entry[1]}     ||       #{entry[2]}      ||       #{entry[3]}   "
-		}
-	end
+  def withdraw(amount)
+    raise 'Unfortunately, any more withdrawals will put you over your overdraft limit.' if lower_limit?(amount)
 
-	private
+    @balance -= amount
+    @history.push([current_date, amount, '', @balance])
+  end
 
-	def get_current_date
-		Time.now.strftime("%d/%m/%Y")
-	end
+  def print_statement
+    statement_header
+    @history.each do |entry|
+      p "#{entry[0]} ||     #{entry[1]}     ||       #{entry[2]}      ||       #{entry[3]}   "
+    end
+  end
 
-	def upper_limit?(amount)
-		amount + @balance > UPPER_LIMIT
-	end
+  private
 
-	def lower_limit?(amount)
-		@balance - amount < LOWER_LIMIT
-	end
+  def current_date
+    Time.now.strftime('%d/%m/%Y')
+  end
 
-	def statement_header 
-		p "Date       || Withdrawal || Deposit || Balance"
-	end
+  def upper_limit?(amount)
+    amount + @balance > UPPER_LIMIT
+  end
 
+  def lower_limit?(amount)
+    @balance - amount < LOWER_LIMIT
+  end
+
+  def statement_header
+    p 'Date       || Withdrawal || Deposit || Balance'
+  end
 end
