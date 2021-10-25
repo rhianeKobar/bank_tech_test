@@ -21,6 +21,13 @@ class Bank_Account
 		@history.push([get_current_date,amount,"", @balance])
 	end
 
+	def get_statement
+		statement_header
+		@history.each{|entry|
+			p "#{entry[0]} ||     #{entry[1]}     ||       #{entry[2]}      ||       #{entry[3]}   "
+		}
+	end
+
 	private
 
 	def get_current_date
@@ -33,6 +40,10 @@ class Bank_Account
 
 	def lower_limit?(amount)
 		@balance - amount < LOWER_LIMIT
+	end
+
+	def statement_header 
+		p "Date       || Withdrawal || Deposit || Balance"
 	end
 
 end
