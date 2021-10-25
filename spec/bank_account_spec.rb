@@ -31,6 +31,11 @@ describe 'Bank account' do
 			expect(account.history.length).to eq 2
 		end
 
+		it 'Should raise an error if the deposit amount will go over the upper limit' do
+			account.deposit(500000000)
+			expect{account.deposit(1)}.to raise_error "Congratulations, you've hit the upper limit! We've redirected this deposit to one of our customers in debt!"
+		end
+
 	end
 	
 	describe 'Withdraw' do
@@ -43,6 +48,11 @@ describe 'Bank account' do
 		it 'Should record the changes made' do
 			with_start_balance.deposit(3000)
 			expect(with_start_balance.history.length).to eq 2
+		end
+
+		it 'Should raise an error if the deposit amount will go over the upper limit' do
+			account.withdraw(10000)
+			expect{account.withdraw(10)}.to raise_error "Unfortunately, your account is #{account.balance} and any more withdrawals will put you over your overdraft limit."
 		end
 
 	end
