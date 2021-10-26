@@ -60,10 +60,10 @@ describe 'BankAccount' do
 
   describe 'Print statement' do
     it 'Should output the history in single lines of code' do
-      add(3000)
-      add(3000)
-      account.withdraw(1500)
-      expect(account.print_statement).to include(['25/10/2021', '', 3000, 6000])
+      add(3000.76)
+      add(3000.65)
+      account.withdraw(1500.34)
+      expect(account.print_statement).to include([date_today, '', 3000.76, 3000.76])
     end
   end
 end

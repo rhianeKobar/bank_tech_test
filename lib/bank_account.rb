@@ -2,11 +2,11 @@
 
 # class BankAccount
 class BankAccount
-  UPPER_LIMIT = 500_000_000
-  LOWER_LIMIT = -10_000
+  UPPER_LIMIT = 500_000_000.00
+  LOWER_LIMIT = -10_000.00
   attr_reader :balance, :history
 
-  def initialize(balance = 0)
+  def initialize(balance = 0.00)
     @balance = balance
     @history = [[current_date, '', '', balance]]
   end

@@ -59,12 +59,3 @@ SimpleCov.start
 4. You need to require the class, like so `require './lib/bank_account.rb'`
 5. Create an instance of the BankAccount class `chose_a_name = BankAccount.new`.
 6. Now you can play with all the public methods attached to the class, try to deposit some money or print out your statement.
-
-
-## Approach
-
-
-
-
-
-
