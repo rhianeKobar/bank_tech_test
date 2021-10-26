@@ -59,3 +59,17 @@ SimpleCov.start
 4. You need to require the class, like so `require './lib/bank_account.rb'`
 5. Create an instance of the BankAccount class `chose_a_name = BankAccount.new`.
 6. Now you can play with all the public methods attached to the class, try to deposit some money or print out your statement.
+
+
+## Screenshots
+
+These screenshots show that the programme meets the acceptance criteria
+
+![screenshot of bank tech test being used in irb](/Resources/bankAccountScreenshot.png "screenshot of bank tech test being used in irb")
+Bank tech test being used in irb
+
+![screenshot of all tests passing and 100% coverage with simplecov](/Resources/rspecAndSimplecovScreenshot.png "screenshot of all tests passing and 100% coverage with simplecov")
+All tests passing and 100% coverage with simplecov
+
+![screenshot of no offenses rubocop](/Resources/rubocopScreenshot.png "screenshot of all tests passing and 100% coverage with simplecov")
+No offenses with rubocop
