@@ -2,6 +2,7 @@
 
 require 'bank_account'
 require './spec/account_helper'
+require 'transaction'
 
 describe 'BankAccount' do
   let(:account) { BankAccount.new }
@@ -17,7 +18,7 @@ describe 'BankAccount' do
   end
 
   it 'Should initialize with one entry in history' do
-    expect(account.history).to include([date_today, '', '', account.balance])
+    expect(account.history.size).to be 1
   end
 
   describe 'Deposit' do
@@ -28,7 +29,10 @@ describe 'BankAccount' do
 
     it 'Should record the changes made' do
       add(3000)
-      expect(account.history).to include([date_today, '', 3000, account.balance])
+      expect(account.history.last.date).to eq date_today
+      expect(account.history.last.withdrawal).to eq "-"
+      expect(account.history.last.deposit).to eq 3000
+      expect(account.history.last.balance).to eq account.balance
     end
 
     it 'Should raise an error if the deposit amount will go over the upper limit' do
@@ -47,7 +51,10 @@ describe 'BankAccount' do
 
     it 'Should record the changes made' do
       remove(300)
-      expect(with_start_balance.history).to include([date_today, 300, '', with_start_balance.balance])
+      expect(with_start_balance.history.last.date).to eq date_today
+      expect(with_start_balance.history.last.withdrawal).to eq 300
+      expect(with_start_balance.history.last.deposit).to eq "-"
+      expect(with_start_balance.history.last.balance).to eq with_start_balance.balance
     end
 
     it 'Should raise an error if the withdrawal amount will go below the lower limit' do
@@ -60,10 +67,7 @@ describe 'BankAccount' do
 
   describe 'Print statement' do
     it 'Should output the history in single lines of code' do
-      add(3000.76)
-      add(3000.65)
-      account.withdraw(1500.34)
-      expect(account.print_statement).to include([date_today, '', 3000.76, 3000.76])
+      expect{account.print_statement}.to output("\"Date       || Withdrawal || Deposit || Balance\"\n\"06/12/2021 ||     -     ||       -      ||       0.0   \"\n").to_stdout
     end
   end
 end

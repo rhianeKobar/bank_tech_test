@@ -8,7 +8,7 @@ class BankAccount
 
   def initialize(balance = 0.00)
     @balance = balance
-    @history = [[current_date, '', '', balance]]
+    @history = [Transaction.new(current_date, "-", "-", balance)]
   end
 
   def deposit(amount)
@@ -17,20 +17,20 @@ class BankAccount
     end
 
     @balance += amount
-    @history.push([current_date, '', amount, @balance])
+    @history << Transaction.new(current_date, "-", amount, @balance) 
   end
 
   def withdraw(amount)
     raise 'Unfortunately, any more withdrawals will put you over your overdraft limit.' if lower_limit?(amount)
 
     @balance -= amount
-    @history.push([current_date, amount, '', @balance])
+    @history << Transaction.new(current_date, amount, "-", @balance) 
   end
 
   def print_statement
     statement_header
     @history.each do |entry|
-      p "#{entry[0]} ||     #{entry[1]}     ||       #{entry[2]}      ||       #{entry[3]}   "
+      p "#{entry.date} ||     #{entry.withdrawal}     ||       #{entry.deposit}      ||       #{entry.balance}   "
     end
   end
 
